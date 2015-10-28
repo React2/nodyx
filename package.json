@@ -1,8 +1,11 @@
 {
   "name": "nodyx",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description" : "The game in which changing the rules is a move",
+  "main" : "app.js",
   "private": true,
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -13,5 +16,10 @@
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
+  },
+  "author": "dbalduini",
+  "license" : "Apache License 2.0",
+  "engines" : {
+    "npm" : "2.14.7"
   }
 }
