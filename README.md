@@ -12,6 +12,8 @@ In the words of Nomic's creator,
 
 ## About the Game
 
+## How to play
+
 ### Rules
 
 ## About the Project
