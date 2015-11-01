@@ -10,12 +10,14 @@ In the words of Nomic's creator,
 > Nomic is a game in which changing the rules is a move. In that respect it differs from almost every other game. The primary activity of Nomic is proposing changes in the rules, debating the wisdom of changing them in that way, voting on the changes, deciding what can and cannot be done afterwards, and doing it. Even this core of the game, of course, can be changed.
 > - (Peter Suber, The Paradox of Self-Amendment, Appendix 3, p. 362)
 
-Nomic, ~~νόμος (nomos), "law" in Grek~~, is a game created in 1982 by philosopher [Peter Suber](https://en.wikipedia.org/wiki/Peter_Suber), which tries to demonstrates that in any system where rule changes are possible, a situation may arise in which the resulting laws are contradictory or insufficient to determine what is in fact legal, creating a paradox.
+Nomic, (from Greek nómos, law), is a game created in 1982 by philosopher [Peter Suber](https://en.wikipedia.org/wiki/Peter_Suber), which tries to demonstrates that in any system where rule changes are possible, a situation may arise in which the resulting laws are contradictory or insufficient to determine what is in fact legal, creating a paradox.
 
 Paradoxes may arise in Nomic that paralyze judgment. Occasionally this will be due to the poor drafting of a rule, but it may also arise from a rule that is well-drafted but mischievous. The variety of such paradoxes is truly impossible to anticipate.
 
 
 ## How to play
+
+[![gameplay](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE "Video Title")
 
 In a ___substantive game___, players aim to score points and win. In a ___procedural game___, players try to tie the rules into the most interesting knots imaginable and to win not by points (Rule 208) but by __paradox__ (Rule 213).
 
@@ -27,7 +29,18 @@ In a ___substantive game___, players aim to score points and win. In a ___proced
 4. Decide what can be done afterwards, and doing id.
 5. The core steps can be changed during a game.
 
+#### Immutable vs Mutable
 
+ Initially, it is convenient to refer to the less mutable rules as "immutable" and to the more mutable rules below them in the hierarchy simply as "mutable"
+
+The "immutable" rules govern more basic processes than the "mutable" rules, and so shield them from hasty change. Because every last rule of the game can change in the the course of play, the players may feel that they are playing a "different game" after a few rounds than when they sat down.
+
+In Nomic, the "immutable" rules may also be amended with a two-step procedure.
+
+1. first is the "transmutation" of the "immutable" rule into a "mutable" rule
+2. the second is the amendment of the mutable rule.
+
+In this sense all rules are amendable by the same procedure; some must simply be transmuted first. Unless players change this, Nomic permits the amendment of every one of its rules; there is no absolutely immutable foundation or inviolate level.
 
 ## **Initial Set** of Rules
 
@@ -126,7 +139,29 @@ There are 29 numbered rules in the Initial Set.
 
   This rule takes precedence over every other rule determining the winner.
 
-## About the Project
+## Nodyx Event-Based Language
+
+Nodyx has it's own programming language, called __NEPL__ (Nodyx Event-Based Programming Language). It's interpreted by Javascript, so everything is a abstraction of the Javascript language.
+
+It's very simple and based on events.
+
+This example shows how to create a Rule that emits hello world to every player on every new turn.
+
+```
+    
+
+```
+
+An event is a message send by an object to a mail-box. Any object subscribed to that mail-box will receive the message, and it should know how to understand it, via a __JSON__ protocol.
+
+```json
+{
+  "": "",
+  "": ""
+}
+```
+
+## Developers
 
 It is developed in the MEAN stack.
 

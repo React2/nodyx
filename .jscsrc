@@ -76,5 +76,6 @@
         "default"
     ],
     "validateParameterSeparator": ", ",
-    "excludeFiles": ["node_modules/**", "bower_components/**"]
+    "excludeFiles": ["node_modules/**", "bower_components/**",
+        "nepl/test/**", "./gulpfile.js"]
 }
