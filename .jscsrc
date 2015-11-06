@@ -8,7 +8,7 @@
     "disallowYodaConditions": true,
     "disallowTrailingComma": true,
     "requireBlocksOnNewline": true,
-    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": false,
     "requireCapitalizedConstructors": true,
     "requireSpaceAfterLineComment": true,
     "requireSpaceAfterObjectKeys": true,
