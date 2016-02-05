@@ -1,126 +1,67 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    var Player = require('../services/players'),
-        PubSub = require('pubsub-js'),
-        Promise = require('bluebird'),
-        listeners = [];
+  var PubSub = require('pubsub-js'),
+      Promise = require('bluebird');
 
-    exports.newTurnBasedGame = function (maxPhases) {
-        console.log('Starting new turn based game...');
+  function Nepl() {
+    this.listeners = [];
+  }
 
-        var playersOnline = Player.getPlayersOnline();
+  Nepl.prototype.emit = function(event, message) {
+    PubSub.publish(event, message);
+  };
 
-        exports.onEvent('newGame', function (message) {
-            console.log("New game started at " + message.date);
-            if (playersOnline.length > 0) {
-                startPlayerTurnListener();
-                startNextTurnListener();
+  /**
+  * Create a listener for the given event
+  * @param {Function} listener - The event listener
+  */
+  Nepl.prototype.on = function(event, listener) {
+    var token = PubSub.subscribe(event, function (e, message) {
+      listener(message);
+    });
 
-                PubSub.publish('nextTurn', 1);
-
-                exports.onEvent('phaseEnded', function (msg, data) {
-                    console.log('Current Phase: ' + data.currentPhase);
-                    if (data.currentPhase === maxPhases) {
-                        notifyGameEnd(data.currentPhase);
-                    } else {
-                        console.log('Starting phase: ' + data.currentPhase);
-                        PubSub.publish('nextTurn', 1);
-                    }
-                });
-
-            } else {
-                console.log('ERROR');
-                systemError('Required at least one player online.');
-            }
-        });
+    this.listeners.push(token);
+    return {
+      'unsubscribe': function() {
+        PubSub.unsubscribe(listener);
+      }
     };
+  };
 
-    function startNextTurnListener () {
-        var players = [],
-            phase = 0;
+  Nepl.prototype.stopAllListeners = function() {
+    console.log('Stopping all listeners: ' + this.listeners.length);
+    this.listeners.forEach(function(listener) {
+      PubSub.unsubscribe(listener);
+    });
+    this.listeners = [];
+  };
 
-        exports.onEvent('nextTurn', function (turn) {
-            var currentTurn = turn,
-                player = players.shift();
+  Nepl.prototype.waitResponse = function(event, timeout) {
+    return new Promise(function(resolve, reject) {
+      var token = PubSub.subscribe(event, function(msg, data) {
+        PubSub.unsubscribe(token);
+        resolve(data);
+      });
 
-            // Reset the players turn
-            if (player === undefined) {
-                phase = phase + 1;
-                players = Player.getPlayersOnline();
-                exports.notify('phaseEnded', {
-                    'currentPhase' : phase
-                });
-            } else {
-                exports.notify('playerTurn', {
-                    'turn' : currentTurn + 1,
-                    'player' : player
-                });
-            }
+      setTimeout(function() {
+        reject('TIMEOUT');
+      }, timeout);
+    });
+  };
 
+  Nepl.prototype.clear = function () {
+    PubSub.clearAllSubscriptions();
+  };
 
-        });
-    }
+  Nepl.prototype.eval = function (lex) {
+    return [{
+      name: "Diego"
+    }, {
+      name: "Jonny"
+    }];
+  };
 
-    function startPlayerTurnListener () {
-        exports.onEvent('playerTurn', function (message) {
-            console.log('Player ' + message.player + ' at turn ' + message.turn);
-            exports.notify('nextTurn', message.turn + 1);
-        });
-    }
-
-    exports.notify = function (event, message) {
-        PubSub.publish(event, message);
-    };
-
-    function systemError (err) {
-        exports.notify('SYSTEM', {
-            'type' : 'error',
-            'body' : err
-        });
-    }
-
-    function notifyGameEnd (currentPhase) {
-        exports.notify('GAME_ENDED', {
-            'winner' : 'Diego',
-            'points' : 1234.0,
-            'duration' : new Date(),
-            'totalPhases' : currentPhase
-        });
-    }
-
-    exports.stopAllListeners = function () {
-        console.log('Stopping all listeners: ' + listeners.length);
-        listeners.forEach(function (listener) {
-           PubSub.unsubscribe(listener);
-        });
-        listeners = 0;
-    };
-
-    // Create a listener for the given event
-    exports.onEvent = function (event, listener) {
-        var token = PubSub.subscribe(event, listener);
-
-        listeners.push(token);
-        return {
-            'unsubscribe' : function () {
-                PubSub.unsubscribe(listener);
-            }
-        };
-    };
-
-    exports.waitResponse = function (event, timeout) {
-        return new Promise(function (resolve, reject) {
-            var token = PubSub.subscribe(event, function (msg, data) {
-                PubSub.unsubscribe(token);
-                resolve(data);
-            });
-
-            setTimeout(function () {
-                reject('TIMEOUT');
-            }, timeout);
-        });
-    };
-
+  module.exports = Nepl;
 
 }());

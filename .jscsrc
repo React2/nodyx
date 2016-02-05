@@ -11,7 +11,7 @@
     "requireCamelCaseOrUpperCaseIdentifiers": false,
     "requireCapitalizedConstructors": true,
     "requireSpaceAfterLineComment": true,
-    "requireSpaceAfterObjectKeys": true,
+    "requireSpaceAfterObjectKeys": false,
     "requireDotNotation": true,
     "requireLineBreakAfterVariableAssignment": true,
     "requireMultipleVarDecl": true,
@@ -22,15 +22,12 @@
     "requireSemicolons": true,
     "requireSpaceBetweenArguments": true,
     "requireSpacesInAnonymousFunctionExpression": {
-        "beforeOpeningRoundBrace": true,
         "beforeOpeningCurlyBrace": true
     },
     "requireSpacesInFunctionDeclaration": {
-        "beforeOpeningRoundBrace": true,
         "beforeOpeningCurlyBrace": true
     },
     "requireSpacesInFunction": {
-        "beforeOpeningRoundBrace": true,
         "beforeOpeningCurlyBrace": true
     },
     "requireSpacesInForStatement": true,
